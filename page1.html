@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<head>
+    <title>End Test</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+    <button class="end" id="endButton" onclick="end()">End</button>
+
+    <script>
+        function end() {
+			video.pause();
+			video.srcObject.getTracks()[0].stop();
+			document.exitFullscreen();
+            window.close();
+		}
+    </script>
+
+</body>

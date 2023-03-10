@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Webcam Fullscreen</title>
+	<link rel="stylesheet" href="style1.css">
+</head>
+<body>
+	<div>
+		<button class="start" id="startButton" onclick="start()">Start</button>
+		<button class="end" id="endButton" onclick="end()">End</button>
+	</div>
+	<div id="videoContainer">
+		<video id="video" width="640" height="480" autoplay></video>
+	</div>
+
+	<script type="text/javascript">
+		var video = document.querySelector("#video");
+		var startButton = document.querySelector("#startButton");
+		var endButton = document.querySelector("#endButton");
+		var videoContainer = document.querySelector("#videoContainer");
+
+		function start() {
+			navigator.mediaDevices.getUserMedia({video: true})
+				.then(function(stream) {
+					video.srcObject = stream;
+					video.play();
+					
+					var elem = document.documentElement;
+					if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+					} else if (elem.webkitRequestFullscreen) {
+					elem.webkitRequestFullscreen();
+					} else if (elem.msRequestFullscreen) {
+					elem.msRequestFullscreen();
+					}
+				})
+				.catch(function(err) {
+					console.log("An error occurred: " + err);
+				});
+		}
+
+		function end() {
+			video.pause();
+			video.srcObject.getTracks()[0].stop();
+			document.exitFullscreen();
+			window.close();
+		}
+	</script>
+</body>
+</html>
